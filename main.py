@@ -13,7 +13,7 @@ def main():
 
     solver = Solver(c, a, b)
 
-    solver.solve()
+    solver.solve(True)
     
     solver.print_solution()
 

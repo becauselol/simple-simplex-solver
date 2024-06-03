@@ -31,14 +31,12 @@ class Tableau:
         return solution
 
     def print_tableau(self):
-        print(f"{self.soln}")
-        print("C---")
-        print(self.c)
-        print("A---")
-        for arr in self.a:
-            print(arr)
-        print("B---")
-        print(self.b)
+        str_c = [f"{val:>8.2f}" for val in self.c]
+        print(f"{self.soln:>8.2f} | {", ".join(str_c)}")
+        print("-" * (10*(len(str_c) + 1)))
+        for i in range(len(self.b)):
+            str_a = [f"{val:>8.2f}" for val in self.a[i]]
+            print(f"{self.b[i]:>8.2f} | {", ".join(str_a)}")
 
     def ratio_test(self, col, method="blands"):
         min_ratio = None
@@ -125,6 +123,8 @@ class Solver:
                 print(f"Iteration: {iter}")
             tableau.pivot(verbose)
             iter += 1
+            if verbose:
+                tableau.print_tableau()
 
         self.obj_value = tableau.get_value()
         self.obj_soln = tableau.get_solution()
