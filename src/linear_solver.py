@@ -14,7 +14,6 @@ class Tableau:
                 self.pivot_col = i
                 break
 
-        print(self.pivot_col)
         self.leaving_row = self.ratio_test(self.pivot_col, method)
 
         return self.pivot_col, self.leaving_row
@@ -66,12 +65,13 @@ class Tableau:
 
         if not candidates:
             raise Exception("Do we still need to pivot?")
-        print(candidates)
         return candidates[0]
 
-    def pivot(self):
+    def pivot(self, verbose=False):
         col, row = self.find_pivot()
-        print(f"pivoting based on {col}, {row}")
+
+        if verbose:
+            print(f"Pivoting using Row {row + 1}, Col {col + 1}")
 
         # now we make the values in self.a[col][row] = 1
         # while also making sure the rest in the row are multiplied accordingly
@@ -88,7 +88,6 @@ class Tableau:
 
         for i in range(len(self.a)):
             if i == row:
-                print("skipping", str(row))
                 continue
 
             if self.a[i][col] != 0:
@@ -117,13 +116,15 @@ class Solver:
         self.b = b_vec
         self.max = max
 
-    def solve(self):
+    def solve(self, verbose=False, print_iter=False):
+        iter = 1
         tableau = Tableau(self.c, self.a, self.b)
 
         while tableau.can_improve():
-            print("improving")
-            tableau.pivot()
-            tableau.print_tableau()
+            if verbose or print_iter:
+                print(f"Iteration: {iter}")
+            tableau.pivot(verbose)
+            iter += 1
 
         self.obj_value = tableau.get_value()
         self.obj_soln = tableau.get_solution()
