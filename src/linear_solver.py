@@ -36,4 +36,18 @@ class Solver:
         if len(c) != len(a[0]):
             raise Error("A and c dimensions do not match")
 
+        for i, val in enumerate(c):
+            if type(val) != int or type(val) != float:
+                raise Error(f"item {i} in c vec not int or float")
+
+        for i, val in enumerate(b):
+            if type(val) != int or type(val) != float:
+                raise Error(f"item {i} in b vec not int or float")
+
+        for i, arr in enumerate(a):
+            for j, val in enumerate(arr):
+                if type(val) != int or type(val) != float:
+                    raise Error(f"item {i}, {j} in A matrix not int or float")
+
+
 
