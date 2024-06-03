@@ -1,4 +1,4 @@
-import Solver from linear_solver
+from ..src.linear_solver import Solver
 
 def test_basic_case():
     # This is a test of equality
@@ -12,6 +12,9 @@ def test_basic_case():
     b = [20, 20, 20]
 
     solver = Solver(a, b, c)
+    solver.solve()
+    assert(solver.obj_value == 136)
+    assert(solver.obj_soln == [4, 4, 4, 0, 0, 0])
 
 # chatGPT
 import unittest
