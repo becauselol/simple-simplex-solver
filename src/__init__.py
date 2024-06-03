@@ -1,1 +1,1 @@
-import Solver from linear_solver
+from .linear_solver import Solver
